@@ -21,16 +21,203 @@ The two main categories of probability distributions are:
 # Question -3 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->>
 
 
-# Question -1 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->>
-# Question -1 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->>
-# Question -1 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->>
-# Question -1 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->>
-# Question -1 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->>
-# Question -1 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->>
-# Question -1 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->>
-# Question -1 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->>
-# Question -1 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->>
-# Question -1 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->>
-# Question -1 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->>
-# Question -1 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->>
-# Question -1 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->>
+To calculate the probability density function (PDF) of a normal distribution at a given point, you can use the formula for the PDF of a normal distribution:
+
+PDF(x) = (1 / (σ * √(2π))) * exp(-((x - μ)^2 / (2 * σ^2)))
+
+where:
+
+x is the point at which you want to calculate the PDF.
+μ is the mean (average) of the normal distribution.
+σ is the standard deviation of the normal distribution.
+You can implement this formula in a Python function as follows:
+
+
+        import math
+        
+        def normal_pdf(x, mean, std_dev):
+            if std_dev <= 0:
+                raise ValueError("Standard deviation must be positive.")
+            
+            coefficient = 1 / (std_dev * math.sqrt(2 * math.pi))
+            exponent = -((x - mean) ** 2) / (2 * std_dev ** 2)
+            
+            pdf_value = coefficient * math.exp(exponent)
+            return pdf_value
+        
+        # Example usage:
+        mean = 0
+        std_dev = 1
+        point = 1.5
+        pdf_at_point = normal_pdf(point, mean, std_dev)
+        print(f"PDF at point {point} is: {pdf_at_point}")
+In this function, we first check if the standard deviation is positive, as it must be. Then, we calculate the coefficient and exponent using the given mean and standard deviation.
+Finally, we compute the PDF value at the given point x and return it.
+
+You can use this function with different mean and standard deviation values to calculate the PDF at various points within the normal distribution.
+
+# Question -4 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->>
+
+The properties of the Binomial distribution are as follows:
+
+1. Fixed number of trials: The Binomial distribution is defined for a fixed number of trials, denoted as "n", where each trial is independent of the others.
+2: Two outcomes: Each trial has only two possible outcomes, typically labeled as "success" and "failure".
+3: Independent trials: The outcome of each trial does not affect the outcome of other trials; they are independent of each other.
+4- Constant probability: The probability of success (p) remains constant across all trials.
+5- Discrete distribution: The Binomial distribution is discrete since it deals with whole numbers (non-negative integers).
+
+Examples of events where the Binomial distribution can be applied:
+
+Coin flipping: Consider flipping a fair coin multiple times. Each flip has two possible outcomes: "heads" (success) with probability 0.5 and "tails" (failure) with probability 0.5.
+The number of heads obtained in a fixed number of coin flips (n) follows a Binomial distribution.
+
+Quality control: In a manufacturing process, a machine produces defective items with a certain probability (p) and non-defective items with probability (q = 1 - p).
+If we inspect a fixed number of items (n) from the production line, the number of defective items among them follows a Binomial distribution.
+
+
+# Question -5 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->>
+
+To generate a random sample of size 1000 from a binomial distribution with a probability of success of 0.4 and plot a histogram of the results,
+you can use the `numpy` library to generate the random sample and `matplotlib` to create the histogram. First, make sure you have both libraries installed. 
+You can install them using `pip` if you haven't already:
+
+
+    pip install numpy matplotlib
+```
+
+Now, you can use the following Python code to generate the sample and plot the histogram:
+
+
+    import numpy as np
+    import matplotlib.pyplot as plt
+    
+    def generate_binomial_sample(size, probability):
+        return np.random.binomial(1, probability, size=size)
+    
+    sample_size = 1000
+    success_probability = 0.4
+
+# Generate the random sample
+    sample = generate_binomial_sample(sample_size, success_probability)
+
+# Plot the histogram
+    plt.hist(sample, bins=2, alpha=0.6, color='blue', edgecolor='black')
+    plt.xticks([0, 1], ['Failure', 'Success'])
+    plt.xlabel('Outcome')
+    plt.ylabel('Frequency')
+    plt.title(f'Binomial Distribution Histogram (n=1000, p=0.4)')
+    plt.grid(True)
+    plt.show()
+```
+
+
+# Question -6 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->>
+
+
+To calculate the cumulative distribution function (CDF) of a Poisson distribution at a given point, you can use the formula for the CDF of a Poisson distribution:
+
+CDF(x) = Σ(λ^k * exp(-λ) / k!) for k = 0 to x
+
+where:
+
+1- CDF(x) is the cumulative probability of the Poisson random variable being less than or equal to "x".
+2- λ (lambda) is the mean of the Poisson distribution.
+3- Σ represents the sum from 0 to x, where "x" is the point at which you want to calculate the CDF.
+4- k is the number of events (non-negative integer) for which the probability is being calculated.
+5- exp() is the exponential function.
+Now, let's implement this formula in a Python function:
+
+
+    import math
+    
+    def poisson_cdf(x, mean):
+        if x < 0 or mean <= 0:
+            raise ValueError("Both x and mean must be non-negative.")
+        
+        cdf_value = 0.0
+        term = 1.0
+        for k in range(x + 1):
+            cdf_value += term
+            term *= (mean / (k + 1))
+        
+        return 1 - math.exp(-mean) * cdf_value
+    
+    # Example usage:
+    mean = 2.5
+    point = 4
+    cdf_at_point = poisson_cdf(point, mean)
+    print(f"CDF at point {point} is: {cdf_at_point}")
+
+# Question -7 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->>
+
+The Binomial distribution and the Poisson distribution are two different probability distributions used to model different types of events.
+Here are the key differences between them:
+
+1- Nature of Events:
+
+    A- Binomial Distribution: The Binomial distribution is used to model the number of successes in a fixed number of independent Bernoulli trials, 
+        where each trial has only two possible outcomes: success or failure. The probability of success (p) remains constant across all trials.
+    B- Poisson Distribution: The Poisson distribution is used to model the number of events that occur in a fixed interval of time or space when the events are rare and random.
+        The probability of an event occurring in a small subinterval is proportional to the size of the subinterval.
+
+2- Number of Trials/Events:
+
+    A- Binomial Distribution: The Binomial distribution deals with a fixed number of trials (n) or events, and each trial is independent of the others.
+    B- Poisson Distribution: The Poisson distribution deals with an infinite number of trials or events, where each trial represents a small subinterval of time or space.
+# Question 8---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->>
+
+To generate a random sample of size 1000 from a Poisson distribution with a mean of 5 and calculate the sample mean and variance, you can use the numpy library,
+which provides functions to generate random numbers from various probability distributions. First, make sure you have numpy installed:
+
+
+    pip install numpy
+Now, you can use the following Python code to generate the sample and calculate the sample mean and variance:
+
+
+
+    import numpy as np
+    
+    def generate_poisson_sample(size, mean):
+        return np.random.poisson(mean, size=size)
+    
+    sample_size = 1000
+    mean = 5
+    
+    # Generate the random sample
+    sample = generate_poisson_sample(sample_size, mean)
+    
+    # Calculate the sample mean and variance
+    sample_mean = np.mean(sample)
+    sample_variance = np.var(sample, ddof=1)
+    
+    print(f"Sample Mean: {sample_mean}")
+    print(f"Sample Variance: {sample_variance}")
+# Question -9 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->>
+
+Mean and variance are important statistical measures that describe the spread and central tendency of a probability distribution. In both the Binomial and Poisson distributions, the relationship between mean (μ) and variance (σ^2) is different.
+
+1- Binomial Distribution:
+    The Binomial distribution is used to model the number of successes in a fixed number of independent Bernoulli trials, where each trial has the same probability of success (p)
+    and failure (q = 1 - p). If X follows a Binomial distribution with parameters n (number of trials) and p (probability of success in each trial),
+    then the mean (μ) and variance (σ^2) are given by:
+    Mean (μ) = n * p
+    Variance (σ^2) = n * p * q
+    
+    The relationship between mean and variance in the Binomial distribution is straightforward.
+    The variance is directly proportional to the number of trials (n) and the probability of success (p),
+    while the mean is equal to the product of the number of trials (n) and the probability of success (p).
+
+2- Poisson Distribution:
+    The Poisson distribution is used to model the number of events that occur in a fixed interval of time or space when the events are rare and independent. 
+    If X follows a Poisson distribution with parameter λ (lambda), which represents the average rate of occurrence of events in the given interval,
+    then the mean (μ) and variance (σ^2) are given by:
+    Mean (μ) = λ
+    Variance (σ^2) = λ
+    
+    In the Poisson distribution, both the mean and the variance are equal to the parameter λ. Unlike the Binomial distribution, 
+    where variance depends on the number of trials and the probability of success, in the Poisson distribution,
+    the variance is solely determined by the average rate of occurrence (λ) of events.
+# Question -10 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->>
+
+    In a normal distribution, the least frequent data points appear in the tails of the distribution, farthest away from the mean.
+    The normal distribution is a symmetric bell-shaped curve, and its shape is determined by the mean and standard deviation.
